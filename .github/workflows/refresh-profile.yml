@@ -25,15 +25,15 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - name: Update public project signals and blog links
+      - name: Update public project signals
         run: python3 scripts/update_profile.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Save updated profile assets
         run: |
-          git add assets/projects.svg README.md
+          git add assets/projects.svg
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Refresh public project signals and writing'
+          git commit -m 'Refresh public project signals'
           git push

@@ -80,16 +80,6 @@ I'm studying at **Jinan University**, with interests in large language models an
 
 <sub>语言按公开非 fork 仓库的主要语言统计；活动来自 GitHub 返回的最近公开事件样本，不等同于完整贡献或提交数。</sub>
 
-### Outside the code
-
-我也会把学习与项目实践写成文章。 / Notes from the things I build and learn.
-
-<!-- BLOG:START -->
-- [我的 verl 实践（一）：在昇腾 910B 上跑通第一次 GRPO 训练](https://lighter00x.github.io/posts/verl-01/)
-- [我的 verl 实践（二）：让训练看得见——Ray、Prometheus 与 Grafana](https://lighter00x.github.io/posts/verl-02/)
-- [我的 verl 实践（三）：把搜索 Agent 训练搬到昇腾](https://lighter00x.github.io/posts/verl-03/)
-<!-- BLOG:END -->
-
 ---
 
 <p align="center"><sub>Build with curiosity. Keep a record. Make the next thing better.</sub></p>

@@ -1,4 +1,4 @@
-"""Build the profile from public GitHub metadata and the owner's Atom feed."""
+"""Build the project dashboard from public GitHub metadata."""
 
 from collections import Counter
 from datetime import datetime, timedelta, timezone
@@ -6,7 +6,6 @@ from html import escape
 from pathlib import Path
 import json
 import os
-import re
 import time
 import urllib.error
 import urllib.request
@@ -14,14 +13,13 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 USER = "lighter00x"
-BLOG = "https://lighter00x.github.io/feed.xml"
 COLORS = {"Python": "#82ac8b", "HTML": "#d9b67c", "JavaScript": "#b6bd72", "TypeScript": "#7ca7b3", "Jupyter Notebook": "#bd9bc0"}
 
 
-def request(url, github=False):
-    headers = {"User-Agent": "lighter00x-profile", "Accept": "application/vnd.github+json" if github else "application/atom+xml"}
+def request(url):
+    headers = {"User-Agent": "lighter00x-profile", "Accept": "application/vnd.github+json"}
     token = os.environ.get("GITHUB_TOKEN")
-    if github and token:
+    if token:
         headers["Authorization"] = f"Bearer {token}"
     for attempt in range(3):
         try:
@@ -34,7 +32,7 @@ def request(url, github=False):
 
 
 def api(path):
-    return json.loads(request("https://api.github.com" + path, github=True))
+    return json.loads(request("https://api.github.com" + path))
 
 
 def public_repositories():
@@ -105,36 +103,12 @@ def dashboard(repositories, events, now):
     return result
 
 
-def blog_links():
-    root = ET.fromstring(request(BLOG))
-    namespace = {"a": "http://www.w3.org/2005/Atom"}
-    links = []
-    for entry in root.findall("a:entry", namespace)[:3]:
-        title = " ".join((entry.findtext("a:title", default="", namespaces=namespace)).split())
-        title = re.sub(r"([\\\[\]])", r"\\\1", title)
-        link = next((node.attrib.get("href", "") for node in entry.findall("a:link", namespace) if node.attrib.get("rel", "alternate") == "alternate"), "")
-        if not link.startswith("https://lighter00x.github.io/"):
-            raise ValueError("Unexpected blog link origin")
-        link = "https://lighter00x.github.io/" + link.removeprefix("https://lighter00x.github.io/").lstrip("/")
-        links.append(f"- [{title}]({link})")
-    if not links:
-        raise ValueError("Blog feed contains no entries")
-    return "\n".join(links)
-
-
 def main():
     repositories = public_repositories()
     events = public_events()
     svg = dashboard(repositories, events, datetime.now(timezone.utc))
-    links = blog_links()
-    path = ROOT / "README.md"
-    content = path.read_text(encoding="utf-8")
-    updated, count = re.subn(r"<!-- BLOG:START -->[\s\S]*?<!-- BLOG:END -->", "<!-- BLOG:START -->\n" + links + "\n<!-- BLOG:END -->", content)
-    if count != 1:
-        raise ValueError("Expected one blog section")
     (ROOT / "assets" / "projects.svg").write_text(svg, encoding="utf-8")
-    path.write_text(updated, encoding="utf-8")
-    print(f"Updated profile: {len(repositories)} public repositories; {len(events)} sampled public events; 3 blog links.")
+    print(f"Updated profile: {len(repositories)} public repositories; {len(events)} sampled public events.")
 
 
 if __name__ == "__main__":
