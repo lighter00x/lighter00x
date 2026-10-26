@@ -33,10 +33,10 @@
 <rect x="782" y="278.0" width="22" height="4.0" rx="3" fill="#e3e8db"><title>2026-10-05: 0 public events</title></rect>
 <rect x="816" y="278.0" width="22" height="4.0" rx="3" fill="#e3e8db"><title>2026-10-12: 0 public events</title></rect>
 <rect x="850" y="278.0" width="22" height="4.0" rx="3" fill="#e3e8db"><title>2026-10-19: 0 public events</title></rect>
-<rect x="884" y="185.0" width="22" height="97.0" rx="3" fill="#477b59"><title>2026-10-26: 7 public events</title></rect>
+<rect x="884" y="185.0" width="22" height="97.0" rx="3" fill="#477b59"><title>2026-10-26: 8 public events</title></rect>
 <text x="510" y="301" font-size="9" fill="#707d73" >08.10</text>
 <text x="845" y="301" font-size="9" fill="#707d73" >THIS WEEK</text>
 <path d="M30 320H930" stroke="#dedfd5"/>
 <text x="30" y="343" font-size="9" fill="#707d73" >Languages = primary language per non-fork public repository.</text>
-<text x="505" y="343" font-size="9" fill="#707d73" >12 weeks / sample of 7 latest public events / not commits</text>
+<text x="505" y="343" font-size="9" fill="#707d73" >12 weeks / sample of 8 latest public events / not commits</text>
 </g></svg>
