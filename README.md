@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/header.svg" width="100%" alt="Qiang Xu · Ideas into projects. Projects into experience.">
+  <img src="assets/header.svg?v=blue-1" width="100%" alt="Qiang Xu · Build something worth sharing.">
 </p>
 
 <p align="center">
@@ -76,7 +76,7 @@ I'm studying at **Jinan University**, with interests in large language models an
 
 ### Signals from my repositories
 
-<img src="assets/projects.svg" width="100%" alt="公开仓库统计、主要语言分布与近期公开活动，每日自动更新。">
+<img src="assets/projects.svg?v=blue-1" width="100%" alt="公开仓库统计、主要语言分布与近期公开活动，每日自动更新。">
 
 <sub>语言按公开非 fork 仓库的主要语言统计；活动来自 GitHub 返回的最近公开事件样本，不等同于完整贡献或提交数。</sub>
 
