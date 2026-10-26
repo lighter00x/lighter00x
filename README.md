@@ -74,11 +74,7 @@ I'm studying at **Jinan University**, with interests in large language models an
 
 <p><a href="https://github.com/lighter00x?tab=repositories">浏览全部仓库 / Explore all repositories →</a></p>
 
-### Signals from my repositories
-
-<img src="assets/projects.svg?v=blue-1" width="100%" alt="公开仓库统计、主要语言分布与近期公开活动，每日自动更新。">
-
-<sub>语言按公开非 fork 仓库的主要语言统计；活动来自 GitHub 返回的最近公开事件样本，不等同于完整贡献或提交数。</sub>
+<img src="assets/projects.svg?v=compact-1" width="100%" alt="简洁技术概览：公开仓库数量与主要语言分布。">
 
 ---
 

@@ -1,7 +1,6 @@
 """Build the project dashboard from public GitHub metadata."""
 
 from collections import Counter
-from datetime import datetime, timedelta, timezone
 from html import escape
 from pathlib import Path
 import json
@@ -46,58 +45,43 @@ def public_repositories():
         page += 1
 
 
-def public_events():
-    events = []
-    for page in range(1, 4):
-        batch = api(f"/users/{USER}/events/public?per_page=100&page={page}")
-        events.extend(batch)
-        if len(batch) < 100:
-            break
-    return events
-
-
 def svg_text(x, y, text, size=12, color="#6b7b96", **attrs):
     extra = " ".join(f'{name.replace("_", "-")}="{escape(str(value), quote=True)}"' for name, value in attrs.items())
     return f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" {extra}>{escape(str(text))}</text>'
 
 
-def dashboard(repositories, events, now):
+def dashboard(repositories):
     nonfork = [repo for repo in repositories if not repo.get("fork")]
     languages = Counter(repo["language"] for repo in nonfork if repo.get("language"))
-    today = now.date()
-    first_week = today - timedelta(days=today.weekday(), weeks=11)
-    buckets = [0] * 12
-    for event in events:
-        date = datetime.fromisoformat(event["created_at"].replace("Z", "+00:00")).date()
-        week = (date - first_week).days // 7
-        if 0 <= week < len(buckets):
-            buckets[week] += 1
+    groups = languages.most_common(3)
+    other = sum(languages.values()) - sum(count for _, count in groups)
+    if other:
+        groups.append(("Other", other))
     parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">',
-        '<title id="title">Public project signals for lighter00x</title>',
-        '<desc id="desc">Public repository counts, primary languages by repository, and a sample of recent public events. Not a full contribution calendar.</desc>',
-        '<rect x=".5" y=".5" width="959" height="359" rx="14" fill="#ffffff" stroke="#dce5f3"/>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="108" viewBox="0 0 960 108" role="img" aria-labelledby="title desc">',
+        '<title id="title">Repository overview for lighter00x</title>',
+        '<desc id="desc">Public repository count and primary languages by non-fork repository. No activity or commit ranking.</desc>',
+        '<rect x=".5" y=".5" width="959" height="107" rx="10" fill="#ffffff" stroke="#e7edf6"/>',
         '<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">',
-        svg_text(30, 31, "PROJECT SIGNALS", 10, "#3970c9", letter_spacing=2),
-        svg_text(730, 31, f"UPDATED {now:%Y.%m.%d} UTC", 9, letter_spacing=1),
+        svg_text(24, 27, "REPOSITORY OVERVIEW", 9, "#7a8aa3", letter_spacing=1.2),
+        svg_text(24, 55, f"{len(repositories)} public repositories", 17, "#30476b", font_weight=500),
+        svg_text(24, 81, "A small snapshot of what I build.", 10, "#8491a6"),
+        '<path d="M333 25V83" stroke="#e7edf6"/>',
     ]
-    for index, (label, value) in enumerate((("PUBLIC REPOSITORIES", len(repositories)), ("NON-FORK REPOSITORIES", len(nonfork)), ("PRIMARY LANGUAGES", len(languages)))):
-        x = 30 + index * 310
-        parts += [svg_text(x, 83, value, 34, "#172b54", font_weight=600), svg_text(x, 106, label, 9, letter_spacing=1.1)]
-    parts += ['<path d="M30 129H930M476 152V305" stroke="#dce5f3"/>', svg_text(30, 161, "WHAT THE PROJECTS ARE WRITTEN IN", 9, "#3970c9", letter_spacing=1), svg_text(505, 161, "RECENT PUBLIC ACTIVITY", 9, "#3970c9", letter_spacing=1)]
-    top_languages = languages.most_common(4)
-    if not top_languages:
-        parts.append(svg_text(30, 211, "No primary language reported yet."))
-    for index, (name, count) in enumerate(top_languages):
-        y = 195 + index * 28
-        width = 205 * count / max(languages.values())
-        parts += [svg_text(30, y, name, 11, "#233c63"), f'<rect x="180" y="{y-8}" width="205" height="6" rx="3" fill="#edf2fa"/>', f'<rect x="180" y="{y-8}" width="{width:.1f}" height="6" rx="3" fill="{COLORS.get(name, "#6e95cf")}"/>', svg_text(404, y, f"{count} repos", 10)]
-    maximum = max(max(buckets), 1)
-    for index, count in enumerate(buckets):
-        x = 510 + index * 34
-        height = max(4, 97 * count / maximum)
-        parts += [f'<rect x="{x}" y="{282-height:.1f}" width="22" height="{height:.1f}" rx="3" fill="{"#3979f6" if count else "#e7eefb"}"><title>{first_week + timedelta(weeks=index)}: {count} public events</title></rect>']
-    parts += [svg_text(510, 301, f"{first_week:%m.%d}" , 9), svg_text(845, 301, "THIS WEEK", 9), '<path d="M30 320H930" stroke="#dce5f3"/>', svg_text(30, 343, "Languages = primary language per non-fork public repository.", 9), svg_text(505, 343, f"12 weeks / sample of {len(events)} latest public events / not commits", 9), '</g></svg>']
+    total = max(sum(languages.values()), 1)
+    position = 360
+    parts.append('<rect x="360" y="32" width="570" height="5" rx="2.5" fill="#edf2fa"/>')
+    for index, (name, count) in enumerate(groups):
+        width = 570 * count / total
+        color = COLORS.get(name, "#9aacc5")
+        parts.append(f'<rect x="{position:.2f}" y="32" width="{width:.2f}" height="5" fill="{color}"/>')
+        x = 360 + index * 145
+        label = name if len(name) <= 15 else name[:14] + "…"
+        parts += [f'<circle cx="{x+3}" cy="66" r="3" fill="{color}"/>', svg_text(x+14, 70, f"{label} · {count}", 10, "#6b7b96")]
+        position += width
+    if not groups:
+        parts.append(svg_text(360, 70, "Primary languages will appear as projects grow.", 11))
+    parts += [svg_text(360, 91, "By primary language per non-fork public repository", 8, "#94a0b2"), '</g></svg>']
     result = "\n".join(parts) + "\n"
     ET.fromstring(result)
     return result
@@ -105,10 +89,9 @@ def dashboard(repositories, events, now):
 
 def main():
     repositories = public_repositories()
-    events = public_events()
-    svg = dashboard(repositories, events, datetime.now(timezone.utc))
+    svg = dashboard(repositories)
     (ROOT / "assets" / "projects.svg").write_text(svg, encoding="utf-8")
-    print(f"Updated profile: {len(repositories)} public repositories; {len(events)} sampled public events.")
+    print(f"Updated compact overview: {len(repositories)} public repositories.")
 
 
 if __name__ == "__main__":
