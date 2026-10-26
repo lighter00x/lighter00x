@@ -1,32 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="292" viewBox="0 0 960 292" role="img" aria-labelledby="title desc">
-  <title id="title">Qiang Xu · A collection of things I build</title>
-  <desc id="desc">An original forest-green project notebook cover with connected project cards.</desc>
+  <title id="title">Qiang Xu · Build something worth sharing</title>
+  <desc id="desc">An original midnight-blue developer workspace with electric-blue accents and a project terminal.</desc>
   <defs>
-    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#375348" stroke-width=".6"/></pattern>
-    <linearGradient id="fade"><stop stop-color="#132d25"/><stop offset="1" stop-color="#203f33"/></linearGradient>
+    <linearGradient id="background" x2="1" y2=".4"><stop stop-color="#0b1023"/><stop offset="1" stop-color="#152657"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#4385ff"/><stop offset="1" stop-color="#96c7ff"/></linearGradient>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#689aff" opacity=".35"/></pattern>
   </defs>
-  <rect width="960" height="292" rx="16" fill="url(#fade)"/>
-  <rect x="540" width="420" height="292" rx="16" fill="url(#grid)" opacity=".6"/>
-  <path d="M540 0V292" stroke="#3b5144" stroke-dasharray="3 7"/>
+  <rect width="960" height="292" rx="14" fill="url(#background)"/>
+  <rect x="530" width="430" height="292" rx="14" fill="url(#dots)"/>
+  <path d="M0 291H960" stroke="#4983ff" stroke-width="2"/>
   <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">
-    <circle cx="47" cy="41" r="4" fill="#b8ce96"/>
-    <text x="61" y="45" fill="#b2c4b2" font-size="10" letter-spacing="2.4">LIGHTER00X / PERSONAL WORKSPACE</text>
-    <text x="42" y="123" fill="#f5f2e6" font-size="58" font-weight="650" letter-spacing="-2">Qiang Xu<tspan fill="#b8ce96">.</tspan></text>
-    <text x="45" y="163" fill="#d4ddcc" font-size="18">Ideas into projects.</text>
-    <text x="45" y="189" fill="#d4ddcc" font-size="18">Projects into experience.</text>
-    <path d="M45 222H82" stroke="#b8ce96" stroke-width="2"/>
-    <text x="94" y="226" fill="#a5b7a5" font-size="10" letter-spacing="1.8">LEARN / BUILD / SHARE</text>
-    <path d="M604 86H858V208H604Z" fill="none" stroke="#6b8a70" stroke-width="1.4" stroke-dasharray="4 7"/>
-    <rect x="576" y="60" width="132" height="79" rx="9" fill="#f4f1e6"/>
-    <text x="591" y="83" fill="#73806c" font-size="9" letter-spacing="1.4">01 / IDEA</text>
-    <text x="591" y="114" fill="#254536" font-family="monospace" font-size="20">{ idea }</text>
-    <rect x="758" y="107" width="154" height="82" rx="9" fill="#b8ce96"/>
-    <text x="774" y="130" fill="#405b39" font-size="9" letter-spacing="1.4">02 / PROJECT</text>
-    <text x="774" y="161" fill="#254536" font-family="monospace" font-size="20">&lt; build /&gt;</text>
-    <rect x="601" y="176" width="139" height="72" rx="9" fill="#294b3c" stroke="#57745a"/>
-    <text x="617" y="199" fill="#bacdb0" font-size="9" letter-spacing="1.4">03 / LEARNING</text>
-    <text x="617" y="226" fill="#ecf0df" font-family="monospace" font-size="17">git commit</text>
-    <circle cx="858" cy="60" r="18" fill="none" stroke="#73916b"/>
-    <path d="M858 48V72M846 60H870M850 52L866 68M850 68L866 52" stroke="#b8ce96" stroke-width="1.2"/>
+    <rect x="40" y="30" width="27" height="22" rx="5" fill="#3676f5"/>
+    <text x="45" y="45" fill="#fff" font-size="10" font-weight="700">QX</text>
+    <text x="80" y="45" fill="#9eafd2" font-size="10" letter-spacing="2">LIGHTER00X / PROJECT SPACE</text>
+    <text x="38" y="127" fill="#ffffff" font-size="64" font-weight="700" letter-spacing="-2.5">Qiang Xu<tspan fill="#6ba7ff">.</tspan></text>
+    <text x="42" y="169" fill="#d9e5ff" font-size="20" font-weight="400">Build something worth sharing.</text>
+    <text x="42" y="201" fill="#8fa6ce" font-size="13">Research, tools, and the ideas in between.</text>
+    <rect x="42" y="238" width="35" height="3" rx="1.5" fill="url(#accent)"/>
+    <text x="90" y="243" fill="#91aedb" font-size="9" letter-spacing="2">CURIOUS MIND. HANDS-ON CODE.</text>
+    <rect x="560" y="54" width="352" height="187" rx="11" fill="#0b142d" stroke="#354a7a"/>
+    <path d="M560 88H912" stroke="#283d68"/>
+    <circle cx="580" cy="71" r="3" fill="#5293ff"/>
+    <circle cx="592" cy="71" r="3" fill="#6d80c2"/>
+    <circle cx="604" cy="71" r="3" fill="#a0accb"/>
+    <text x="760" y="75" fill="#839bc7" font-family="Consolas,DejaVu Sans Mono,monospace" font-size="10">~/lighter00x</text>
+    <g font-family="Consolas,DejaVu Sans Mono,monospace" font-size="14">
+      <text x="584" y="120" fill="#70adff">$<tspan dx="8" fill="#ecf3ff">explore ideas</tspan></text>
+      <text x="584" y="152" fill="#70adff">$<tspan dx="8" fill="#ecf3ff">build projects</tspan></text>
+      <text x="584" y="184" fill="#70adff">$<tspan dx="8" fill="#ecf3ff">share progress</tspan></text>
+      <text x="584" y="217" fill="#70adff">❯</text>
+      <rect x="604" y="204" width="8" height="15" fill="#70adff"/>
+    </g>
   </g>
 </svg>

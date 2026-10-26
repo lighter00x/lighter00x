@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 USER = "lighter00x"
-COLORS = {"Python": "#82ac8b", "HTML": "#d9b67c", "JavaScript": "#b6bd72", "TypeScript": "#7ca7b3", "Jupyter Notebook": "#bd9bc0"}
+COLORS = {"Python": "#3979f6", "HTML": "#f28b53", "JavaScript": "#e4bd3e", "TypeScript": "#36a4e5", "Jupyter Notebook": "#9c6deb"}
 
 
 def request(url):
@@ -56,7 +56,7 @@ def public_events():
     return events
 
 
-def svg_text(x, y, text, size=12, color="#707d73", **attrs):
+def svg_text(x, y, text, size=12, color="#6b7b96", **attrs):
     extra = " ".join(f'{name.replace("_", "-")}="{escape(str(value), quote=True)}"' for name, value in attrs.items())
     return f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" {extra}>{escape(str(text))}</text>'
 
@@ -76,28 +76,28 @@ def dashboard(repositories, events, now):
         '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">',
         '<title id="title">Public project signals for lighter00x</title>',
         '<desc id="desc">Public repository counts, primary languages by repository, and a sample of recent public events. Not a full contribution calendar.</desc>',
-        '<rect x=".5" y=".5" width="959" height="359" rx="14" fill="#f6f5ef" stroke="#dedfd5"/>',
+        '<rect x=".5" y=".5" width="959" height="359" rx="14" fill="#ffffff" stroke="#dce5f3"/>',
         '<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">',
-        svg_text(30, 31, "PROJECT SIGNALS", 10, "#52745c", letter_spacing=2),
+        svg_text(30, 31, "PROJECT SIGNALS", 10, "#3970c9", letter_spacing=2),
         svg_text(730, 31, f"UPDATED {now:%Y.%m.%d} UTC", 9, letter_spacing=1),
     ]
     for index, (label, value) in enumerate((("PUBLIC REPOSITORIES", len(repositories)), ("NON-FORK REPOSITORIES", len(nonfork)), ("PRIMARY LANGUAGES", len(languages)))):
         x = 30 + index * 310
-        parts += [svg_text(x, 83, value, 34, "#244737", font_weight=600), svg_text(x, 106, label, 9, letter_spacing=1.1)]
-    parts += ['<path d="M30 129H930M476 152V305" stroke="#dedfd5"/>', svg_text(30, 161, "WHAT THE PROJECTS ARE WRITTEN IN", 9, "#52745c", letter_spacing=1), svg_text(505, 161, "RECENT PUBLIC ACTIVITY", 9, "#52745c", letter_spacing=1)]
+        parts += [svg_text(x, 83, value, 34, "#172b54", font_weight=600), svg_text(x, 106, label, 9, letter_spacing=1.1)]
+    parts += ['<path d="M30 129H930M476 152V305" stroke="#dce5f3"/>', svg_text(30, 161, "WHAT THE PROJECTS ARE WRITTEN IN", 9, "#3970c9", letter_spacing=1), svg_text(505, 161, "RECENT PUBLIC ACTIVITY", 9, "#3970c9", letter_spacing=1)]
     top_languages = languages.most_common(4)
     if not top_languages:
         parts.append(svg_text(30, 211, "No primary language reported yet."))
     for index, (name, count) in enumerate(top_languages):
         y = 195 + index * 28
         width = 205 * count / max(languages.values())
-        parts += [svg_text(30, y, name, 11, "#364e3e"), f'<rect x="180" y="{y-8}" width="205" height="6" rx="3" fill="#e6e9df"/>', f'<rect x="180" y="{y-8}" width="{width:.1f}" height="6" rx="3" fill="{COLORS.get(name, "#91a79a")}"/>', svg_text(404, y, f"{count} repos", 10)]
+        parts += [svg_text(30, y, name, 11, "#233c63"), f'<rect x="180" y="{y-8}" width="205" height="6" rx="3" fill="#edf2fa"/>', f'<rect x="180" y="{y-8}" width="{width:.1f}" height="6" rx="3" fill="{COLORS.get(name, "#6e95cf")}"/>', svg_text(404, y, f"{count} repos", 10)]
     maximum = max(max(buckets), 1)
     for index, count in enumerate(buckets):
         x = 510 + index * 34
         height = max(4, 97 * count / maximum)
-        parts += [f'<rect x="{x}" y="{282-height:.1f}" width="22" height="{height:.1f}" rx="3" fill="{"#477b59" if count else "#e3e8db"}"><title>{first_week + timedelta(weeks=index)}: {count} public events</title></rect>']
-    parts += [svg_text(510, 301, f"{first_week:%m.%d}" , 9), svg_text(845, 301, "THIS WEEK", 9), '<path d="M30 320H930" stroke="#dedfd5"/>', svg_text(30, 343, "Languages = primary language per non-fork public repository.", 9), svg_text(505, 343, f"12 weeks / sample of {len(events)} latest public events / not commits", 9), '</g></svg>']
+        parts += [f'<rect x="{x}" y="{282-height:.1f}" width="22" height="{height:.1f}" rx="3" fill="{"#3979f6" if count else "#e7eefb"}"><title>{first_week + timedelta(weeks=index)}: {count} public events</title></rect>']
+    parts += [svg_text(510, 301, f"{first_week:%m.%d}" , 9), svg_text(845, 301, "THIS WEEK", 9), '<path d="M30 320H930" stroke="#dce5f3"/>', svg_text(30, 343, "Languages = primary language per non-fork public repository.", 9), svg_text(505, 343, f"12 weeks / sample of {len(events)} latest public events / not commits", 9), '</g></svg>']
     result = "\n".join(parts) + "\n"
     ET.fromstring(result)
     return result

@@ -9,7 +9,7 @@
 - `scripts/update_profile.py`：从 GitHub 公开接口生成项目统计 SVG，不读取博客或修改 README。
 - `assets/projects.svg`：自动生成，请优先修改脚本。
 
-整体配色为墨绿、米白与浅绿；项目卡片用原生 Markdown/HTML，适应 GitHub 明暗主题。不依赖第三方统计卡片服务。
+整体配色为午夜蓝、亮蓝与纯白；项目卡片用原生 Markdown/HTML，适应 GitHub 明暗主题。不依赖第三方统计卡片服务。
 
 ## 自动更新
 
