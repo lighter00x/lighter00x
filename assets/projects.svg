@@ -4,14 +4,14 @@
 <rect x=".5" y=".5" width="959" height="107" rx="10" fill="#ffffff" stroke="#e7edf6"/>
 <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">
 <text x="24" y="27" font-size="9" fill="#7a8aa3" letter-spacing="1.2">REPOSITORY OVERVIEW</text>
-<text x="24" y="55" font-size="17" fill="#30476b" font-weight="500">11 public repositories</text>
+<text x="24" y="55" font-size="17" fill="#30476b" font-weight="500">12 public repositories</text>
 <text x="24" y="81" font-size="10" fill="#8491a6" >A small snapshot of what I build.</text>
 <path d="M333 25V83" stroke="#e7edf6"/>
 <rect x="360" y="32" width="570" height="5" rx="2.5" fill="#edf2fa"/>
-<rect x="360.00" y="32" width="513.00" height="5" fill="#3979f6"/>
+<rect x="360.00" y="32" width="518.18" height="5" fill="#3979f6"/>
 <circle cx="363" cy="66" r="3" fill="#3979f6"/>
-<text x="374" y="70" font-size="10" fill="#6b7b96" >Python · 9</text>
-<rect x="873.00" y="32" width="57.00" height="5" fill="#f28b53"/>
+<text x="374" y="70" font-size="10" fill="#6b7b96" >Python · 10</text>
+<rect x="878.18" y="32" width="51.82" height="5" fill="#f28b53"/>
 <circle cx="508" cy="66" r="3" fill="#f28b53"/>
 <text x="519" y="70" font-size="10" fill="#6b7b96" >HTML · 1</text>
 <text x="360" y="91" font-size="8" fill="#94a0b2" >By primary language per non-fork public repository</text>
